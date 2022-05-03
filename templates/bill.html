@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{bills.name}}</title>
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8">  
+        <style>
+            .all{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-evenly;
+                align-items: center;
+                align-content: center;
+            }
+            .debts{
+                margin-right: 20%;
+
+            }
+            #bill_img{
+                margin-left: 20%;
+            }
+        </style>
+        <script src="static/js/jquery-3.6.0.min.js"></script>
+        <script src="static/js/overdue.js"></script>
+        <script src="static/js/deletebill.js"></script>
+    </head>
+    <body>
+        {% include 'header.html' %}
+        <h1>{{bills.name}}</h1>
+
+        <h3>Click on the respective debtors for information on their debts.</h3>
+        <div id="message"></div>
+    
+        <div class="all">
+            
+            <div id="bill_img">
+                <h3>Bill Image</h3>
+                <img src="data:image/png;base64,{{newimage}}" width="300" 
+                height="400">
+            </div>
+
+            <div class="debts">
+                <div id="{{bills.id}}" class="table">
+                    <div class="intro here">
+                        <div><div class="key one" style="display: inline-block;">&nbsp;</div> Needs Action</div></br>
+                        <div><div class="key two" style="display: inline-block;">&nbsp;</div> Overdue</div></br>
+                        <div><div class="key three" style="display: inline-block;">&nbsp;</div> Pending</div>
+                    </div>
+                    <h3>Pending Debtors</h3>
+                
+                    <table id="debtors">
+                        <thead>
+                            <tr>
+                                <th width='150px'>House.MATES</th>
+                                <th>Debt</th>
+                                <th width="150px">Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for (debtors,debt) in array.items() %}
+                                {% if debt.status == 0 %}
+                                <tr>
+                                    <td><div class="pending {{debt.id}}"><a href='spec2?id={{debtors.id}}&id2={{debt.id}}'>{{debtors.first_name}}</a></div></td>
+                                    <td><div class="pending {{debt.id}}">{{debt.value}}</div></td>
+                                    <td><div id="{{debt.id}}" class="pending deadline {{debt.id}}">{{bills.deadline}}</div></td>
+                                </tr>
+                                {% elif debt.status == 2 %}
+                                <tr>
+                                    <td><div class="need_action"><a href='spec2?id={{debtors.id}}&id2={{debt.id}}'>{{debtors.first_name}}</a></div></td>
+                                    <td><div class="need_action">{{debt.value}}</div></td>
+                                    <td><div class="need_action">{{bills.deadline}}</div></td>
+                                </tr>
+                                {% elif debt.status == 3 %}
+                                <tr>
+                                    <td><div class="overdue"><a href='spec2?id={{debtors.id}}&id2={{debt.id}}'>{{debtors.first_name}}</a></div></td>
+                                    <td><div class="overdue">{{debt.value}}</div></td>
+                                    <td><div class="overdue">{{bills.deadline}}</div></td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            
+                <h3>Debts Cleared</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th width='200px'>Done</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for (debtors,debt) in settle.items() %}
+                        <tr>
+                            <td><a href='spec2?id={{debtors.id}}&id2={{debt.id}}'>{{debtors.first_name}}</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>no entries</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                <p>
+                    Bill accidentally added?</br><a class="button login link" href="/remove?id={{bills.id}}">Delete this bill</a>
+                </p>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

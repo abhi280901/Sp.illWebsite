@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Notifications</title>
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8">  
+        <script src="static/js/jquery-3.6.0.min.js"></script>
+        <script src="static/js/not.js"></script>
+    </head>
+    <body>
+        {% include 'header.html' %}
+        <h1>Your Notifications</h1>
+        <p>
+            <div id="content">Click on a notification to display it's content</div></br>
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in notf %}
+                <tr>
+                    <td><a href= 'javascript:;' class="notf"  id="{{entry.id}}"><strong>{{entry.title}}</strong></a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>You have no notifications!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

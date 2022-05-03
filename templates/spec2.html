@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{debtor.first_name}}'s Debt</title>
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8">  
+        <script src="static/js/jquery-3.6.0.min.js"></script>
+        <script src="static/js/cleardebt.js"></script>
+    </head>
+    <body>
+        {% include 'header.html' %}
+        <h1>{{debtor.first_name}}'s Debt for {{bill.name}}</h1>
+
+        <table>
+         <thead>
+            <tr>
+                 <th width='200px' colspan="2">Details</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+                 <td><strong>Value</strong></td>
+                 <td><div id='value'>{{debt.value}}</div></td>
+    
+            </tr>
+            <tr>
+                 <td><strong>Deadline</strong></td>
+                 <td>{{bill.deadline}}</td>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                {% if debt.status == 0 %}
+                <td id="status">Pending</td>
+                {% elif debt.status == 1 %}
+                <td id="status">Settled</td>
+                {% elif debt.status == 2 %}
+                <td id="status">Needs Action</td>
+                {% else %}
+                <td id="status">Overdue</td>
+                {% endif %}
+            </tr>
+         </tbody>
+     </table>
+     <p>
+        <a class="button login link" href="/bill?id={{bill.id}}">Return to the bill page</a>
+     </p>
+     {% if debt.status == 2 %}
+     <div class="intro">
+     <div id="form">
+        <h3>{{debtor.first_name}} claims to have cleared this Sp.ILL. Below is the proof of their payment.</br> If this is valid, hit the close button to close this debt.</h3>
+        <p>Proof:</p>
+        <div id="proof_img">
+            
+            <img src="data:image/png;base64,{{proof}}" width="300" 
+            height="400">
+        </div>
+    
+        <p>
+            Value cleared: {{debt.claim_value}}
+        </p>
+        <form method="post" action='#' enctype="multipart/form-data" id="clear">
+            </p>
+                <input type="hidden" name="debt_id" value='{{debt.id}}' required>
+            <p>
+            <p>
+                <input class="button login" type="submit" value="Close this Spi.LL!">
+            </p>
+        </form>
+        <p>
+            Need more proof? Transaction didn't go through? Revert this debt back to {{debtor.first_name}}
+        </p>
+        <form method="post" action="/revert" id="revert">
+            </p>
+                <input type="hidden" name="debt_id" value='{{debt.id}}' required>
+            <p>
+            <p>
+                <input class="button revert" type="submit" value="Revert the Sp.ILL!">
+            </p>
+        </form>
+        </div>
+      
+       
+     </div>
+     {% endif %}
+    </body>
+</html>

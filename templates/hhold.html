@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Household Info</title>  
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8">  
+    </head>
+    <body>
+        {% include 'header.html' %}
+        <h1>Welcome {{user.first_name}}!</h1>
+        <h3>Your household's name is {{hhold.name}}. The reference code for your household is {{hhold.code}}.</br>Please remember it for future housemates reference.</h1>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Sp.ILL</title>
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8">
+    </head>
+    <body>
+        {% include 'logo.html' %}
+        <div class="intro">
+            <p>Have a shared household? Have loads of bills and no time to calculate how much who owes who?</p>
+            <p>Don't worry. <strong> Sp.ill will help split your bills.</strong></p>
+            <p>Invite your housemates to join too. This way they can link to you and receive real-time updates on amounts owed for various bills.</p>
+            <p>You do not need to worry about calculating nor informing them, let Sp.ill save you the hassle of bill-splitting!</p>
+        </div>
+        {% for mesg in get_flashed_messages() %}
+             <h3 class="flash">{{ mesg }}</h3>
+        {% endfor %}
+        <form method="post" action='/login'>
+            <p>
+                <label>Username: </label>
+                <input type='text'  name='uname' placeholder="Enter your username" required/>
+            </p>
+            <p>
+                <label>Password: </label>
+                <input type="password" name="pswrd" placeholder="Enter your password" required>
+            </p>
+            <p>
+                <input type="submit" class="button login" value="Log In!">
+            </p>
+        </form>
+        <p >
+            Don't have an account?</br><a class="button login link" href="reg">Register here!</a>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Debts</title>
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8">
+        <style>
+            .here{
+                margin-left: 40%;
+                margin-right: 40%;
+                width: 250px;
+                position: relative;
+            }
+        </style> 
+         <script src="static/js/jquery-3.6.0.min.js"></script>
+         <script src="static/js/overdue.js"></script>
+    </head>
+    <body>
+        {% include 'header.html' %}
+        <h1>Your Debts</h1>
+
+        <h3>These are debts that you owe your other housemates.</h3>
+
+        <div class="intro here">
+            <div><div class="key one" style="display: inline-block;">&nbsp;</div> Awaiting collector confirmation </div></br>
+            <div><div class="key two" style="display: inline-block;">&nbsp;</div> Overdue</div></br>
+            <div><div class="key three" style="display: inline-block;">&nbsp;</div> Pending</div>
+        </div>
+        <p>
+            Click on the respective debt for further info on clearing and notifying your housemates. 
+        </p>
+        <table class="debts" >
+        <thead>
+             <tr>
+                 <th width='200px'>Sp.ILL'D</th>
+                 <th>Debt</th>
+                 <th>Deadline</th>
+             </tr>
+         </thead>
+        <tbody>
+        {% for (bill,debt) in array.items() %} 
+            {% if debt.status == 0 %}
+            <div class="pending">
+                <tr>
+                    <td><div class="pending {{debt.id}}"><a href='spec?id={{bill.id}}&id2={{debt.id}}'><strong>{{bill.name}}</strong></a></div></td>
+                    <td><strong><div class="pending {{debt.id}}">{{debt.value}}</div></strong></td>
+                    <td><strong><div id="{{debt.id}}" class="pending deadline {{debt.id}}">{{bill.deadline}}</div></strong></td>
+                </tr>
+             </div>
+            {% elif debt.status == 2 %}  
+            <div class="need_action"></div>
+                <tr>
+                    <td><a href='spec?id={{bill.id}}&id2={{debt.id}}'><strong><div class="need_action">{{bill.name}}</div></strong></a></td>
+                    <td><strong><div class="need_action">{{debt.value}}</div></strong></td>
+                    <td><strong><div  class="need_action">{{bill.deadline}}</div></strong></td>
+                </tr>
+            </div>
+            {% else %}
+            <div class="overdue"></div>
+                <tr>
+                    <td><a href='spec?id={{bill.id}}&id2={{debt.id}}'><strong><div class="overdue">{{bill.name}}</div></strong></a></td>
+                    <td><strong><div class="overdue">{{debt.value}}</div></strong></td>
+                    <td><strong><div  class="overdue">{{bill.deadline}}</div></strong></td>
+                </tr>
+            </div>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="3">You have no debts. Yayy!!</td>
+            </tr>
+        {% endfor %}
+            <tr >
+                <td style="background-color: #B2AC88"><strong>Total Debt</strong></td>
+                <td colspan="2" style="background-color: #B2AC88"><strong>{{user.total_debt}}</strong></td>
+            </tr>
+        </tbody>
+     </table>
+    </body>
+</html>

@@ -1,0 +1,3 @@
+Please add the transcript/subtitles/caption 
+file(Modified_AutoTranscript_CS139 Web Demo_2.vtt) 
+into the video(demo.mp4) prior to playing it.

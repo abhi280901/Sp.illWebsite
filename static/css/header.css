@@ -1,0 +1,50 @@
+a:link, a:visited{
+    text-decoration: none;
+}
+
+.nav:link, .nav:visited{
+    color: #e7d3cc;
+}
+.nav:link, .nav:visited :hover{
+    color: black;
+}
+
+#navmenu{
+    border-radius: 10px;
+    border: none;
+    
+}
+
+#navmenu tbody td{
+    border-bottom-color: #266867;
+    border-top-color: #266867;
+    background-color: #D54022;
+    font-family: 'Garamond', serif; 
+    font-size: 20px;
+    transition-duration: 0.4s;
+    border: none;
+
+}
+#navmenu tbody td:hover{
+    background-color: #DDC772;
+    color: black;
+
+}
+#navmenu thead td {
+    border: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 60px;
+    font-family:  'Source Sans Pro', sans-serif; 
+    font-size: 25px;
+}
+
+#navmenu tr:last-child td:first-child {
+    border-left-color: #266867;
+    border-bottom-left-radius: 15px;
+}
+
+#navmenu tr:last-child td:last-child {
+    border-color: #266867;
+    border-bottom-right-radius: 15px;
+}

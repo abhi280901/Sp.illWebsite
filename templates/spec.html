@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{bill.name}}</title>
+        <link rel="stylesheet" href="static/css/main.css" type="text/css" charset="utf-8"> 
+        <script src="static/js/jquery-3.6.0.min.js"></script>
+        <script src="static/js/clear.js"></script> 
+        <style>
+            .file{
+                text-align-last: center;
+            }
+        </style>
+    </head>
+    <body>
+        {% include 'header.html' %}
+        <h1>{{bill.name}}</h1>
+        <table>
+         <thead>
+             <tr>
+                 <th width='200px' colspan="2">Details</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr>
+                <td><strong>Value</strong></td>
+                 <td>{{debt.value}}</td>
+    
+             </tr>
+             <tr>
+                <td><strong>Deadline</strong></td>
+                 <td>{{bill.deadline}}</td>
+             </tr>
+             <tr>
+                <td><strong>You Owe</strong></td>
+                <td>{{user.first_name}}</td>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                {% if debt.status == 0 %}
+                <td>Pending</td>
+                {% elif debt.status == 1 %}
+                <td>Settled</td>
+                {% elif debt.status == 2 %}
+                <td>Awaiting Confirmation</td>
+                {% else %}
+                <td>Overdue</td>
+                {% endif %}
+            </tr>
+         </tbody>
+     </table>
+     {% if (debt.status == 0) or (debt.status == 3) %}
+     <p>
+     <div class="intro">
+     <h3>Settled PART OF or the WHOLE bill?</br> Upload your proof of payment to {{user.first_name}} and hit submit to notify him/her!</h3>
+     <form id="{{debt.value}}" class="spill" method="post" action='#' enctype="multipart/form-data">
+       
+        <p>
+            <label>Image: </label>
+            <input type='file'  style="width: 102px;padding: 0px;" class="file"  name='proof' accept="image/*" required/>
+        </p>
+        <p>
+            <label>How much of the Sp.ILL'D have you cleared?: </label></br>
+            <input style="width: 50px;" type="radio" name="settle" value='yes' id="yes" checked>The WHOLE bill.</input></br>
+            <input style="width: 50px;" type="radio" name="settle" value='no' id="no">PART OF the bill.</input>
+            <div id="form-settle"></div>
+            <div id="value-validate"></div>
+        </p>
+        <input type="hidden" name="debt_id" value='{{debt.id}}' required>
+        <p>
+            <input class="button login" type="submit"  value="Clear this Spi.LL'D!">
+        </p>
+        </div>
+
+    </form>
+</p>
+{% endif %}
+    </body>
+</html>
